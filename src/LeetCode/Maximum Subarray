@@ -1,0 +1,20 @@
+"""
+https://leetcode.com/explore/challenge/card/30-day-leetcoding-challenge/528/week-1/3285/
+1. Kadane's Algorithm
+2. Divide and Conquer
+"""
+class Solution:
+    def maxSubArray(self, nums: List[int]) -> int: 
+        best_sum = float('-inf')
+        current_sum = 0
+        for x in nums:
+            if current_sum <= 0:
+                current_sum = x
+            else:
+                # Extend the existing sequence with the current element
+                current_sum += x
+
+            if current_sum > best_sum:
+                best_sum = current_sum
+
+        return best_sum
