@@ -1,5 +1,6 @@
 """
 https://www.hackerrank.com/challenges/queries-with-fixed-length/problem
+Minimax Problem
 """
 #1. My Solution
 from collections import deque
