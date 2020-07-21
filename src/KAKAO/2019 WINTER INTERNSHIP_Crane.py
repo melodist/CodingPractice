@@ -1,4 +1,5 @@
 """
+https://programmers.co.kr/learn/courses/30/lessons/64061
 """
 #1. My Solution - O(rows * cols) / O(moves)
 def solution(board, moves):
