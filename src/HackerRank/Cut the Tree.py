@@ -1,12 +1,12 @@
 """
 https://www.hackerrank.com/challenges/cut-the-tree/problem
+Make any node as a root and Store sum of weights for subtree using DFS.
 """
-#1. My Solution
+#1. Naive Solution - O(n^2)
 from collections import defaultdict, deque
 
 
 def cutTheTree(data, edges):
-    # Write your code here
     answer = 10**10
     for l, r in edges:
         tree = defaultdict(list)
@@ -42,39 +42,50 @@ def cutTheTree(data, edges):
 
     return answer
 
-#2. Other Solution
-sys.setrecursionlimit(10**5)
+#2. Optimal Solution - O(n)
+from collections import defaultdict
 
-def dfs(conn , node, sums, data, parent):
-    if sums[node]!=0:
-        return sums[node]
-    nb = conn[node]
-    if len(nb)==1 and node!=0:
-        sums[node] = data[node]
-        return data[node]
-    ans = 0
-    for n1 in nb:
-        if n1!=parent:
-            ans += dfs(conn, n1, sums, data, node)
-    ans += data[node]
-    sums[node] = ans 
-    return ans
 
 def cutTheTree(data, edges):
-    conn = [[] for i in range(n)]
-    for e in edges:
-        e1 = e[0]-1
-        e2 = e[1]-1
-        conn[e1].append(e2)
-        conn[e2].append(e1)
-    sums = [0 for i in range(n)]
-    dfs(conn , 0, sums, data, 0)
-    print(sums)
-    mindiff = 999999999
+    # Make the tree
+    tree = defaultdict(list)
+    for a, b in edges:
+        tree[a].append(b)
+        tree[b].append(a)
+    
+    n = len(data)
+    sums = [0] * (n + 1)
+    root = [0] * (n + 1) # Store the root for each node
+    q = [1]
+    visited = set()
+    
+    # Non-recursive DFS (Depth-First Search)
+    while q:
+        cur = q[-1] # Don't pop the vertex here
+
+        temp = []
+        for v in tree[cur]:
+            if v not in visited:
+                temp.append(v)
+                root[v] = cur
+        
+        # Calculate the sum of the weights in subtree
+        if not temp:
+            for v in tree[cur]:
+                if v != root[cur]:
+                    sums[cur] += sums[v]
+            sums[cur] += data[cur - 1]
+            q.pop() # Pop the vertex only if we visited its children already
+
+        q += temp
+
+        visited.add(cur)
+
+    answer = 10**10
+
     for i in range(1, n):
-        ## seperate node i
-        sum1 = sums[i]
-        sum2 = sums[0] - sums[i]
-        diff = abs(sum1 - sum2)
-        mindiff = min(mindiff, diff)
-    return mindiff
+        # Calculate difference between two subtrees
+        temp = abs(2 * sums[i+1] - sums[1])
+        answer = min(temp, answer)
+
+    return answer
