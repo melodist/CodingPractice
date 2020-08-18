@@ -1,0 +1,38 @@
+"""
+https://www.acmicpc.net/problem/9536
+"""
+#1. My Solution
+for _ in range(int(input())):
+    fox = input().split()
+    sounds = set()
+    while True:
+        s = input().split()
+        if len(s) == 3:
+            sounds.add(s[2])
+        else:
+            break
+        
+    for i in range(len(fox)):
+        if fox[i] in sounds:
+            fox[i] = ''
+        
+    fox = filter(lambda x: x != '', fox)
+    print(' '.join(fox))
+
+#2. Other Solution
+for _ in range(int(input())):
+    fox = input().split()
+    sounds = set()
+    while True:
+        s = input().split()
+        if len(s) == 3:
+            sounds.add(s[2])
+        else:
+            break
+        
+    answer = []
+    for f in fox:
+        if f not in sounds:
+            answer.append(f)        
+            
+    print(' '.join(answer))
