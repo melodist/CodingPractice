@@ -86,27 +86,24 @@ class Graph():
     def is_cyclic(self):
         visited = set()
         on_stack = [False] * self.V
+        
+        # Since all nodes are guaranteed to be connected, use only 1 DFS
+        st = [0]
+        while st:
+            cur = st[-1]
 
-        for i in range(self.V):
-            if i in visited:
-                continue
+            if cur in visited:
+                on_stack[cur] = False
+                st.pop()
+            else:
+                visited.add(cur)
+                on_stack[cur] = True
 
-            st = [i]
-            while st:
-                cur = st[-1]
-
-                if cur in visited:
-                    on_stack[cur] = False
-                    st.pop()
-                else:
-                    visited.add(cur)
-                    on_stack[cur] = True
-
-                for i in self.graph[cur]:
-                    if i not in visited:
-                        st.append(i)
-                    elif on_stack[i]:
-                        return False
+            for i in self.graph[cur]:
+                if i not in visited:
+                    st.append(i)
+                elif on_stack[i]:
+                    return False
 
         return True
 
