@@ -1,6 +1,6 @@
 """
 https://www.hackerrank.com/challenges/kingdom-division/problem
-Using Dynamic Programming
+Using Sibling Dynamic Programming
 """
 from collections import defaultdict, Counter, deque
 
@@ -25,7 +25,7 @@ def kingdomDivision(n, roads):
         node = leaves.popleft()
 
         # If parent differs, exclude case where ALL children differ
-        count[node][False] = count[node][True] - count[node][False]
+        count[node][False] = count[node][True] - count[node][False] 
 
         # If no edges left, we have reached root and are done
         if not degree[node]:
