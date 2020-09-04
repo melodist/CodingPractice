@@ -2,6 +2,23 @@
 https://www.acmicpc.net/problem/8972
 Implementation Problem
 Check the position of break and if the whole loop breaks.
+Counterexample
+8 8
+R......R
+.R...RR.
+..R..RR.
+........
+.....R..
+......R.
+....I...
+.......R
+1444544
+
+Collect solution
+>> kraj 5
+Failed solution
+>> kraj 5
+>> kraj 7
 """
 #1. My Solution
 # R : mad aduino
