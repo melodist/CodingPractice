@@ -1,3 +1,8 @@
+"""
+https://programmers.co.kr/learn/courses/30/lessons/60062/
+Implementation Problem
+"""
+#1.My Solution
 from itertools import product
 
 def solution(n, weak, dist):
@@ -131,3 +136,35 @@ weak = [1,3,4,9,10]
 dist = [1,2,3,4,5,6,7]
 
 solution(n, weak, dist)
+
+#2. Other Solution
+from collections import deque
+
+
+def solution(n, weak, dist):
+    dist.sort(reverse=True)
+    q = deque([weak])
+    visited = set()
+    visited.add(tuple(weak))
+    for i in range(len(dist)):
+        d = dist[i]
+        for _ in range(len(q)):
+            current = q.popleft()
+            for p in current:
+                l = p
+                r = (p + d) % n
+                # l : start node / r : end node
+                # temp stores the nodes not visited
+                if l < r:
+                    temp = tuple(filter(lambda x: x < l or x > r, current))
+                else:
+                    temp = tuple(filter(lambda x: x < l and x > r, current))
+                
+                # Check is finished if temp is empty
+                if len(temp) == 0:
+                    return (i + 1)
+                # Not need to use the path already used
+                elif temp not in visited:
+                    visited.add(temp)
+                    q.append(list(temp))
+    return -1
