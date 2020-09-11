@@ -36,6 +36,8 @@ def solution(words, queries):
     return ans
     
 #2. Solution using counter (Timeout in TC2-4, TC2-5)
+# If query or words become longer, access time will be slower
+# because one trie stores (# of words) * (length of each words)
 from collections import defaultdict
 
 
