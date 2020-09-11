@@ -1,3 +1,51 @@
+"""
+https://programmers.co.kr/learn/courses/30/lessons/60059
+Implementation Problem
+Using numpy for 2D array
+"""
+#1. My Solution
+import numpy as np
+
+
+def rot_90(arr):
+    n = len(arr)
+    ans = [[0] * n for _ in range(n)]
+    for i in range(n):
+        for j in range(n):
+            ans[i][j] = arr[n-1-j][i]
+
+    return ans
+
+def match(key, lock, m, n, i, j):
+    key_90 = rot_90(key)
+    key_180 = rot_90(key_90)
+    key_270 = rot_90(key_180)
+    
+    for k in (key, key_90, key_180, key_270):
+        temp = lock.copy()
+        temp[i:i+m, j:j+m] += k
+        temp_cen = temp[m-1:-m+1, m-1:-m+1]
+        if np.all(temp_cen == 1):
+            return True
+        
+    return False
+
+def solution(key, lock):
+    m, n = len(key), len(lock)
+    key = np.array(key); lock = np.array(lock)
+    lock_padd = [[0] * (n+(m-1)*2) for _ in range(n+(m-1)*2)]
+    for i in range(n):
+        lock_padd[i+m-1][m-1:-m+1] = lock[i]
+
+    lock_padd = np.array(lock_padd)
+    for i in range(m+n-1):
+        for j in range(m+n-1):
+            if match(key, lock_padd, m, n, i, j):
+                return True
+
+    return False
+
+#2. Former Solution
 import numpy as np
 
 def rotate_90(m):
