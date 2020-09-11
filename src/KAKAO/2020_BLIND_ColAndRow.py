@@ -1,3 +1,52 @@
+"""
+https://programmers.co.kr/learn/courses/30/lessons/60061/
+Implementation Problem
+"""
+#1. My Solution
+class Build():
+    def __init__(self):
+        self.building = set()
+        
+    def check(self):
+        for x, y, a in self.building:
+            if a == 0:  # col
+                cond = set([(x, y-1, 0),(x, y, 1),(x-1, y, 1)])
+                if y == 0 or len(self.building & cond) > 0:
+                    continue
+                else:
+                    return False
+            else:  # row
+                cond1 = set([(x, y-1, 0),(x+1, y-1, 0)])
+                cond2 = set([(x-1, y, 1), (x+1, y, 1)])
+                if len(self.building & cond1) > 0 or len(self.building & cond2) == 2:
+                    continue
+                else:
+                    return False
+                    
+        return True
+
+    def create(self, x, y, a):
+        self.building.add((x, y, a))
+        if not self.check():
+            self.building.remove((x, y, a))
+
+    def delete(self, x, y, a):
+        self.building.remove((x, y, a))
+        if not self.check():
+            self.building.add((x, y, a))
+
+def solution(n, build_frame):
+    build = Build()
+    for x, y, a, b in build_frame:
+        if b == 1:
+            build.create(x, y, a)
+        else:
+            build.delete(x, y, a)
+        
+    answer = sorted([*build.building])
+    return answer
+
+#2. Former Solution
 def delete(build, result):
     temp = result.copy()
     print(f'Delete {build[:3]}')
@@ -66,10 +115,3 @@ def solution(n, build_frame):
     answer.sort()
     return answer
 
-n = 5
-build_frame = [[0,0,0,1],[2,0,0,1],[4,0,0,1],[0,1,1,1],[1,1,1,1],[2,1,1,1],[3,1,1,1],[2,0,0,0],[1,1,1,0],[2,2,0,1]]
-# result = [[0,0,0],[0,1,1],[1,1,1],[2,1,1],[3,1,1],[4,0,0]]
-
-result = solution(n, build_frame)
-print(result)
-  
