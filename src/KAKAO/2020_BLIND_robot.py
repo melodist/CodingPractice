@@ -1,4 +1,77 @@
 """
+https://programmers.co.kr/learn/courses/30/lessons/60063
+Implementation Problem
+Decrease number of cases
+Express two points as row, col, direction
+"""
+#1. My Solution
+from collections import deque
+
+
+class Robot():
+    def __init__(self, board):
+        self.board = board
+        self.N = len(board)
+        self.directions = [(0, 1), (1, 0), (0, -1), (-1, 0)]
+        
+    def dtop(self, r, c, d):
+        return r + self.directions[d][0], c + self.directions[d][1]
+        
+    def check(self, r, c, d):
+        r2, c2 = self.dtop(r, c, d)
+        a = 0 <= r < self.N and 0 <= c < self.N and self.board[r][c] == 0
+        b = 0 <= r2 < self.N and 0 <= c2 < self.N and self.board[r2][c2] == 0
+        return a and b
+    
+    def convert(self, r, c, d):
+        if d == 2:
+            return r, c-1, 0
+        elif d == 3:
+            return r-1, c, 1
+        else:
+            return r, c, d
+            
+    def next_move(self, r, c, d):
+        # RDLU and rotate 1~4
+        r2, c2 = self.dtop(r, c, d)
+        
+        answer = []
+        
+        for dr, dc in self.directions:
+            if self.check(r+dr, c+dc, d):
+                answer.append((r+dr, c+dc, d))
+                if r == r2 and dc == 0:
+                    answer.append((r, c, (d+dr) % 4))
+                    answer.append((r2, c2, (d+dr) % 4))
+                if c == c2 and dr == 0:
+                    answer.append((r, c, (d-dc) % 4))
+                    answer.append((r2, c2, (d-dc) % 4))
+        return answer
+    
+    def solve(self):
+        start = ((0, 0, 0), 0)
+        q = deque([start])
+        visited = set()
+        while q:
+            (r, c, d), time = q.popleft()
+            r2, c2 = self.dtop(r, c, d)
+            if (r, c) == (self.N-1, self.N-1) or (r2, c2) == (self.N-1, self.N-1):
+                return time
+            
+            temp = []
+            for r1, c1, d1 in self.next_move(r, c, d):
+                temp.append((self.convert(r1, c1, d1)))
+            for (r3, c3, d3) in set(temp) - visited:
+                q.append(((r3, c3, d3), time+1))
+                visited.add((r3, c3, d3))
+            visited.add((r, c, d))
+    
+def solution(board):
+    r = Robot(board)
+    return r.solve()
+
+#2. Former Solution
+"""
 각 좌표에서 이동할 수 있는 방법들을 그래프로 만들고  
 그 그래프의 최소 경로를 BFS를 이용하여 구함  
 그래프가 가진 정점의 갯수는 r * c * d  = N * N * 4   
@@ -15,7 +88,6 @@ d : 0 -> 오른쪽 / d : 1 -> 아래쪽 / d : 2 -> 왼쪽 / d : 3 -> 위쪽
 
 [r, c, d]를 key로 하는 dictionary로 그래프를 표현
 """
-
 def make_point(robot):
     """ Return coordinate of robot
     """
@@ -222,7 +294,3 @@ def solution(board):
                     continue
     
     return len(bfs_paths(graph, (0,0,0), goals)[0]) - 1
-    
-board = [[0, 0, 0, 1, 1],[0, 0, 0, 1, 0],[0, 1, 0, 1, 1],[1, 1, 0, 0, 1],[0, 0, 0, 0, 0]]
-solution(board)
-# result = 7
