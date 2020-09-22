@@ -18,6 +18,8 @@ def solution(a):
             for r2 in range(n+1):
                 a1, b1 = n-r2, r2  # a1 means 1 of prev column, b1 means 0 of prev column
                 a2, b2 = cols[c-1], n-cols[c-1]  # a2 means 1 of current column, b1 means 0 of current column
+                # x + y = r
+                # select x of 1 from a1, select y of 0 from b1
                 x2 = (r + a2 - b1)
                 if x2 % 2:
                     continue
@@ -25,7 +27,7 @@ def solution(a):
                 y = r - x
                 if 0 <= x <= a2 and 0 <= y <= b2:
                     if (a1, x) not in combs:
-                        combs[(a1, x)] = comb(a1, x)
+                        combs[(a1, x)] = comb(a1, x)  
                     if (b1, y) not in combs:
                         combs[(b1, y)] = comb(b1, y)
 
