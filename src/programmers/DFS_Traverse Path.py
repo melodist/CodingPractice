@@ -6,8 +6,7 @@ Using BFS
 # Fail if case has duplicated tickets
 # [["ICN", "A"], ["ICN", "A"], ["A", "ICN"], ["A", "ICN"]]
 # >> ["ICN", "A", "ICN", "A", "ICN"]
-import heapq
-from collections import defaultdict, deque
+from collections import defaultdict
 
 
 def solution(tickets):
@@ -29,8 +28,7 @@ def solution(tickets):
                 stack.append((v, visited | set([(u, v)]), route + [v]))
 
 #2. Collect Solution
-import heapq
-from collections import defaultdict, deque
+from collections import defaultdict
 
 
 def solution(tickets):
