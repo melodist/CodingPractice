@@ -1,6 +1,14 @@
 """
 https://www.hackerrank.com/challenges/reverse-shuffle-merge/problem
 Using greedy algorithm
+
+1. Built frequency hash-map for char and occurences. Original word has half of the occurence of every char
+2. Reverse the original string and try to construct the smallest lexicographic one
+3. While iterating, use a stack (the idea somehow resembles the largest rectangle problem, from stack category).
+4. If the new char occurs already n/2 times, where n = frequency of the original / 2, 
+then skip this char, since we can not, nor we should push it to the stack
+5. else pop chars from the stack, if: stack is not empty, 
+top char stack is greater than the new char and by removing the top char we still can build the word with desired frequency
 """
 #1. My Solution
 from collections import defaultdict
