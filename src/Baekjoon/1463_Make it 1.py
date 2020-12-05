@@ -2,7 +2,7 @@
 https://www.acmicpc.net/problem/1463
 Using BFS
 """
-#1. My Solution (116ms)
+#1. My Solution using BFS (116ms)
 from collections import deque
 
 
@@ -28,7 +28,7 @@ while n != 1:
     
 print(cnt[1])
 
-#2. Other Solution (56ms)
+#2. Other Solution using dynamic programming (56ms)
 save = {1:0, 2:1}
 def frog(n):
     if n in save:
