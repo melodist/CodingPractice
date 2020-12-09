@@ -1,6 +1,6 @@
 """
 https://www.acmicpc.net/problem/9466
-Using DFS
+Using DFS and cycle detection
 """
 #1. My Solution (5140ms)
 import sys 
