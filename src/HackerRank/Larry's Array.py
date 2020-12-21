@@ -15,6 +15,9 @@ def larrysArray(A):
     return 'YES' if invs % 2 == 0 else 'NO'
     
 #2. Solution using self-balancing binary search tree (nlogn)
+# Make binary search tree
+# If key is smaller than root.key, add the size of right subtree to count
+
 # An AVL Tree based Python program to  
 # count inversion in an array  
   
