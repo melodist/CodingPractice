@@ -1,0 +1,47 @@
+"""
+https://programmers.co.kr/learn/courses/30/lessons/72411?language=python3
+Implementation Problem
+"""
+#1. My Solution
+from itertools import combinations
+from collections import defaultdict
+
+
+def solution(orders, course):
+    answer = []
+    d = [defaultdict(int) for _ in range(11)]
+    for o in orders:
+        o = sorted(o)
+        for c in course:
+            for p in combinations(o, c):
+                d[c][''.join(p)] += 1
+
+    for c in course:
+        e = d[c]
+        if not d[c]:
+            continue
+        key = max(list(e.values()))
+        if key < 2:
+            continue
+        for k in e:
+            if e[k] == key:
+                answer.append(k)
+
+    return sorted(answer)
+    
+#2. Other Solution
+import collections
+import itertools
+
+def solution(orders, course):
+    result = []
+
+    for course_size in course:
+        order_combinations = []
+        for order in orders:
+            order_combinations += itertools.combinations(sorted(order), course_size)
+
+        most_ordered = collections.Counter(order_combinations).most_common()
+        result += [ k for k, v in most_ordered if v > 1 and v == most_ordered[0][1] ]
+
+    return [ ''.join(v) for v in sorted(result) ]
