@@ -37,11 +37,4 @@ def solution(play_time, adv_time, logs):
             answer_sec = i - adv_time_sec + 1
             max_time = total_time[i] - total_time[i - adv_time_sec]
                 
-    hh_ans = answer_sec // (60 * 60)
-    hh_ans = str(hh_ans) if hh_ans >= 10 else '0' + str(hh_ans)
-    mm_ans = (answer_sec % (60 * 60)) // 60
-    mm_ans = str(mm_ans) if mm_ans >= 10 else '0' + str(mm_ans)
-    ss_ans = (answer_sec % (60 * 60)) % 60
-    ss_ans = str(ss_ans) if ss_ans >= 10 else '0' + str(ss_ans)
-
-    return ':'.join(map(str, [hh_ans, mm_ans, ss_ans]))
+    return f"{answer_sec//3600:02d}:{answer_sec%3600//60:02d}:{answer_sec%3600%60:02d}"
