@@ -3,6 +3,23 @@ https://www.hackerrank.com/challenges/count-triplets-1/problem
 Using Dictionary
 """
 #1. My Solution
+from collections import defaultdict
+
+
+def countTriplets(arr, r):
+    count = defaultdict(int)
+    count2 = defaultdict(int)
+    ans = 0
+    for k in arr:
+        if k % r == 0 and k // r in count2:  #  Countercase. k = 49, r = 4
+            ans += count2[k // r]
+        if k % r == 0 and k // r in count:
+            count2[k] += count[k // r]
+        count[k] += 1
+
+    return ans
+
+#2. Other Solution
 def countTriplets(arr, r):
         count = 0
         dict = {}
