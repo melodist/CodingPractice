@@ -1,3 +1,7 @@
+"""
+https://www.acmicpc.net/problem/11729
+Using Recursion
+"""
 def hanoi(n, desks):
     """
     desks[0] : start / desks[1] : temp / desks[2] : end
