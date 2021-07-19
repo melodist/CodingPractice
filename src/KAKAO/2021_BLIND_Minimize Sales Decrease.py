@@ -2,7 +2,7 @@
 https://programmers.co.kr/learn/courses/30/lessons/72416
 Using Dynamic Programming and DFS
 """
-#1. My Soltuion
+#1. My Solution
 from collections import defaultdict
 
 def solution(sales, links):
