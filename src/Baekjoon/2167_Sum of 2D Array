@@ -1,0 +1,42 @@
+"""
+https://www.acmicpc.net/problem/2167
+Implementation Problem
+"""
+#1. My Solution (164ms)
+import sys
+
+
+input = sys.stdin.readline
+n, m = map(int, input().split())
+arr = [[*map(int, input().split())] for _ in range(n)]
+
+# acc[i][j] is accumulated sum of rectangle area from (1, 1) to (i, j)
+acc = [[0] * (m+1) for _ in range(n+1)]
+
+# 가로 누적합
+for i in range(n):
+    for j in range(m):
+        acc[i+1][j+1] = acc[i+1][j] + arr[i][j]
+
+# 세로 누적합
+for i in range(m):
+    for j in range(n):
+        acc[j+1][i+1] += acc[j][i+1]
+
+k = int(input())
+for _ in range(k):
+    i, j, x, y = map(int, input().split())
+    print(acc[i-1][j-1] + acc[x][y] - acc[x][j-1] - acc[i-1][y])
+    
+#2. Other Solution (116ms)
+import sys
+from itertools import accumulate as acc
+input = sys.stdin.readline
+x, y = [int(i) for i in input().split()]
+s = [[0] + list(acc(map(int, input().split()))) for i in range(x)]
+t = [(0, ) + tuple(acc(i)) for i in zip(*s)]
+
+for _ in range(int(input())):
+    a, b, u, v = [int(i) for i in input().split()]
+    r1, r2 = t[v], t[b-1]
+    print(r1[u] - r1[a - 1] - r2[u] + r2[a - 1])
