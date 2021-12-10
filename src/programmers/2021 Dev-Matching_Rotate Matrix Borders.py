@@ -2,7 +2,6 @@
 https://programmers.co.kr/learn/courses/30/lessons/77485
 Implementation Problem
 """
-#1. My Solution
 def solution(rows, columns, queries):
     answer = []
     
@@ -12,7 +11,7 @@ def solution(rows, columns, queries):
         for j in range(columns):
             arr[i][j] = i * columns + (j+1)
     
-    for x1, y1, x2, y2 in queries:
+    for y1, x1, y2, x2 in queries:
         arr_temp = [[0] * columns for _ in range(rows)]
         for i in range(rows):
             for j in range(columns):
