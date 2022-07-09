@@ -2,7 +2,21 @@
 https://leetcode.com/problems/jump-game-vi/
 Using sliding window and dynamic programming
 """
-#1. Solution using deque
+#1. Solution using brute force - O(nk)
+class Solution:
+    def maxResult(self, nums: List[int], k: int) -> int:
+        n = len(nums)
+        dp = [-float('inf')] * n
+        dp[0] = nums[0]
+        
+        for i in range(n):
+            boundary = min(n, i+k+1)
+            for j in range(i+1, boundary):
+                dp[j] = max(dp[j], dp[i] + nums[j])
+                
+        return dp[-1]
+
+#2. Solution using deque - O(n)
 class Solution:
     def maxResult(self, nums: List[int], k: int) -> int:
         dp = [0] * len(nums)
@@ -20,7 +34,7 @@ class Solution:
                 
         return dp[-1]
             
-#2. Solution using heap
+#3. Solution using heap - O(n)
     def maxResult(self, nums: List[int], k: int) -> int:
         highestK = [(-nums[0],0)]
         result = nums[0]  # handles case where there is just 1 itme
