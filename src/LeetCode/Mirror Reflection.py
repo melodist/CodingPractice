@@ -1,0 +1,19 @@
+"""
+https://leetcode.com/problems/mirror-reflection/
+Math Problem
+Find Least Common Multiple of p and q, the distance ray meets a receptor first
+"""
+#1. Simple Solution (42ms)
+class Solution:
+    def mirrorReflection(self, p: int, q: int) -> int:
+        k = 1
+        while (q * k % p): k += 1
+        if q * k / p % 2 and k % 2: return 1
+        if q * k / p % 2 == 0 and k % 2: return 0
+        if q * k / p % 2 and k % 2 == 0: return 2
+        return -1
+    
+#2. Solution using bit calculation (45ms)
+class Solution:
+    def mirrorReflection(self, p: int, q: int) -> int:
+         return ((p & -p) >= (q & -q)) + ((p & -p) > (q & -q))
