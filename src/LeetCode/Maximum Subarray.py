@@ -2,6 +2,7 @@
 https://leetcode.com/explore/challenge/card/30-day-leetcoding-challenge/528/week-1/3285/
 1. Kadane's Algorithm
 2. Divide and Conquer
+3. Dynamic Programming
 """
 # 1. Kadane's Algorithm
 class Solution:
@@ -51,3 +52,16 @@ class Solution:
                 right_sum = sm
 
         return left_sum + right_sum
+
+#3. Dynamic Programming
+class Solution:
+    def maxSubArray(self, nums: List[int]) -> int:
+        # dp[i] means maximum sum for subarray for nums[0:i+1] with nums[i]
+        n = len(nums)
+        dp = [0] * n
+        dp[0] = nums[0]
+
+        for i in range(1, n):
+            dp[i] = max(dp[i-1] + nums[i], nums[i])
+
+        return max(dp)
