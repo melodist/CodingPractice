@@ -1,5 +1,6 @@
 """
-https://leetcode.com/explore/interview/card/top-interview-questions-easy/97/dynamic-programming/576/
+https://leetcode.com/problems/house-robber
+Using Dynamic Programming
 """
 #1. My Solution
 class Solution:
@@ -35,3 +36,14 @@ class Solution:
             max_money[idx] = max(max_money[idx - 2] + nums[idx],
                                 max_money[idx - 1])
         return max_money[-1]
+    
+#3. Other Solution (41ms)
+class Solution:
+    def rob(self, nums: List[int]) -> int:
+        curr = next_1 = next_2 = 0
+        for i in nums[::-1]:
+            curr = max(next_1, next_2 + i)
+            next_2 = next_1
+            next_1 = curr
+
+        return next_1
