@@ -1,7 +1,13 @@
 """
-https://leetcode.com/explore/interview/card/top-interview-questions-easy/94/trees/625/
+https://leetcode.com/problems/validate-binary-search-tree
 """
 #1. My Solution
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
 from collections import deque
 class Solution:
     def isValidBST(self, root: TreeNode) -> bool:
@@ -50,3 +56,15 @@ class Solution:
             root = root.right
             
         return True
+    
+#3. Solution using recursion (46ms)
+class Solution:
+    def isValidBST(self, root: Optional[TreeNode]) -> bool:
+        def isValidTree(root, min_node, max_node):
+            if not root: return True
+            if min_node and root.val <= min_node.val: return False
+            if max_node and root.val >= max_node.val: return False
+
+            return isValidTree(root.left, min_node, root) and isValidTree(root.right, root, max_node)
+
+        return isValidTree(root, None, None)
