@@ -4,6 +4,7 @@ https://leetcode.com/explore/challenge/card/30-day-leetcoding-challenge/531/week
 Time complexity O(n) / Space complexity O(n)
 2. 2-point approach. Time complexity O(n^2) / Space complexity O(1)
 """
+#1. Solution using prefix sum (112ms)
 class Solution:
     def subarraySum(self, nums: List[int], k: int) -> int:
         n = len(nums)
@@ -23,7 +24,8 @@ class Solution:
             prevSum[cursum] += 1
                     
         return ans
-        
+
+#2. Solution using two-point approach
 class Solution:
     def subarraySum(self, nums: List[int], k: int) -> int:
         n = len(nums)
