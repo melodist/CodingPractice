@@ -3,6 +3,9 @@ https://www.hackerrank.com/challenges/sherlock-and-moving-tiles
 Mathematics Problem
 """
 #1. My Solution
+import math
+
+
 def movingTiles(l, s1, s2, queries):
     times = []
     for q_i in queries:
