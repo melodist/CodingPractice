@@ -1,4 +1,5 @@
 """
+https://www.acmicpc.net/problem/1013
 Using Greedy Algorithm
 Note that there are no number starts with zero
 """
