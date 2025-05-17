@@ -27,3 +27,33 @@ def last(n, k):
             ans %= 10**k
             
     return ans
+
+
+#2. Using modulo operation
+from decimal import Decimal
+
+
+def solve(n, k):
+    return first(n,k) + last(n, k)
+    
+    
+def first(n, k):
+    x = (n-1) * Decimal(2).log10()
+    number_of_digits = int (math.ceil(x))
+    return int(10 ** (x - number_of_digits + k))
+    
+    
+def last(n, k):
+    return power_by_mod(2, n-1, 10**k)
+    
+     
+def power_by_mod (a, b, c):
+    if b == 0:
+        return 1
+    a %= c
+    if b == 1:
+        return a
+    t = power_by_mod(a, b // 2, c)
+    t = (t * t) % c
+    
+    return t if b % 2 == 0 else (t * a) % c
